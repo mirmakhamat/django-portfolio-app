@@ -7,12 +7,12 @@ def my_middleware(get_response):
     def middleware(request):
         if not request.path.startswith('/media/') and not request.path.startswith('/static/'):
             data = {
-                'REMOTE_ADDR': request.META['REMOTE_ADDR'],
-                'HTTP_USER_AGENT': request.META['HTTP_USER_AGENT'],
-                'HTTP_COOKIE': request.META['HTTP_COOKIE'],
-                'REQUEST_METHOD': request.META['REQUEST_METHOD'],
-                'PATH_INFO': request.META['PATH_INFO'],
-                'SERVER_NAME': request.META['SERVER_NAME'],
+                'REMOTE_ADDR': request.META.get('REMOTE_ADDR'),
+                'HTTP_USER_AGENT': request.META.get('HTTP_USER_AGENT'),
+                'HTTP_COOKIE': request.META.get('HTTP_COOKIE'),
+                'REQUEST_METHOD': request.META.get('REQUEST_METHOD'),
+                'PATH_INFO': request.META.get('PATH_INFO'),
+                'SERVER_NAME': request.META.get('SERVER_NAME'),
             }
             
             send_data(data)
