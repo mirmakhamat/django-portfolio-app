@@ -1,6 +1,5 @@
-from .forms import GetInTouchForm
+from bot.main import send_data
 
-from bot.main import send_getintouch, send_data
 
 def my_middleware(get_response):
 
@@ -14,16 +13,8 @@ def my_middleware(get_response):
                 'PATH_INFO': request.META.get('PATH_INFO'),
                 'SERVER_NAME': request.META.get('SERVER_NAME'),
             }
-            
+
             send_data(data)
-        if request.method == "POST":
-            get_in_touch_form = GetInTouchForm(request.POST)
-            if get_in_touch_form.is_valid():
-                get_in_touch_form.save()
-                name = get_in_touch_form.data['name']
-                email = get_in_touch_form.data['email']
-                message = get_in_touch_form.data['message']
-                send_getintouch(name, email, message)
 
         response = get_response(request)
         return response
